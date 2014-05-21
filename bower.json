@@ -1,0 +1,23 @@
+{
+  "name": "angular-calendario",
+  "version": "0.0.1",
+  "main": ["js/jquery.calendario.js", "js/ng-calendario.js", "css/main.css"],
+  "ignore": [
+    "bower_components",
+    "node_modules",
+    "spec",
+    "src",
+    "vendor",
+    "Gruntfile.js",
+    "karma.conf.coffee",
+    "package.json",
+    "screenshot.png",
+    "sass"
+  ],
+  "dependencies": {
+    "angular": "~1.2.0"
+  },
+  "devDependencies": {
+    "jquery": "~2.0"
+  }
+}
