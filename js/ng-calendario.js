@@ -42,8 +42,36 @@
       require: 'ngModel',
       replace: false,
       scope: false,
-      template: '<div><div class="custom-header clearfix"><nav><span id="custom-prev" class="custom-prev" ng-click="calendario.gotoPreviousMonth()"></span><span id="custom-next" class="custom-next" ng-click="calendario.gotoNextMonth()"></span></nav><h2 id="custom-month" class="custom-month">{{ calendario.getMonthName() }}</h2><h3 id="custom-year" class="custom-year">{{ calendario.getYear() }}</h3></div><div class="fc-calendar-container"></div><div>',
+      template: '<div><div class="custom-header clearfix"><nav><span id="custom-prev" class="custom-prev" ng-click="calendario.gotoPreviousMonth()" ng-hide="hidePrevMonth()"></span><span id="custom-next" class="custom-next" ng-click="calendario.gotoNextMonth()" ng-hide="hideNextMonth()"></span></nav><h2 id="custom-month" class="custom-month">{{ calendario.getMonthName() }}</h2><h3 id="custom-year" class="custom-year">{{ calendario.getYear() }}</h3></div><div class="fc-calendar-container"></div><div>',
       link: function($scope, $element, attrs, $ngModel) {
+        attrs.$observe('minDate', function(val) {
+          if (val[0] === '+' || val[0] === '-') {
+            var now = new Date()
+            var date = new Date(now.getFullYear(), now.getMonth() + parseInt(val))
+            $scope.minYear = date.getFullYear();
+            $scope.minMonth = date.getMonth() + 1;
+          } else {
+            var dateParts = val.match(/(\d\d\d\d)-(\d\d)/);
+            if (dateParts !== null) {
+              $scope.minYear = parseInt(dateParts[1]);
+              $scope.minMonth = parseInt(dateParts[2]);
+            }
+          }
+        });
+        attrs.$observe('maxDate', function(val) {
+          if (val[0] === '+' || val[0] === '-') {
+            var now = new Date()
+            var date = new Date(now.getFullYear(), now.getMonth() + parseInt(val))
+            $scope.maxYear = date.getFullYear();
+            $scope.maxMonth = date.getMonth() + 1;
+          } else {
+            var dateParts = val.match(/(\d\d\d\d)-(\d\d)/);
+            if (dateParts !== null) {
+              $scope.maxYear = parseInt(dateParts[1]);
+              $scope.maxMonth = parseInt(dateParts[2]);
+            }
+          }
+        });
 
         $scope.onDayClick = function($el, $content, dateProperties) {
           var year   = dateProperties.year;
@@ -59,6 +87,22 @@
           $scope.$apply(function () {
             $ngModel.$setViewValue(dateISO);
           });
+        };
+
+        $scope.hidePrevMonth = function () {
+          return (
+            angular.isDefined($scope.minYear) &&
+            angular.isDefined($scope.minMonth) &&
+            $scope.minYear*100+$scope.minMonth >= $scope.calendario.getYear()*100+$scope.calendario.getMonth()
+          );
+        };
+
+        $scope.hideNextMonth = function () {
+          return (
+            angular.isDefined($scope.maxYear) &&
+            angular.isDefined($scope.maxMonth) &&
+            $scope.maxYear*100+$scope.maxMonth <= $scope.calendario.getYear()*100+$scope.calendario.getMonth()
+          );
         };
 
         // Specify how UI should be updated
