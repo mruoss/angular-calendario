@@ -24,7 +24,7 @@
       var $calendario = function() {};
 
       $calendario.setOptions = function(options) {
-        calendarioOptions = $.extend(true, {}, calendarioOptions, options);
+        calendarioOptions = angular.extend(calendarioOptions, options);
       };
 
       $calendario.getOptions = function() {
