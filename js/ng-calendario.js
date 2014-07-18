@@ -115,6 +115,7 @@
               data[dateCalendario] = '<div class="ng-hide">Selected</div>';
               $scope.calendario.caldata = {};
               $scope.calendario.setData(data);
+              $scope.calendario.gotoMonth(dateParts[2],dateParts[1]);
             }
           }
         };
