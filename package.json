@@ -1,0 +1,17 @@
+{
+  "name": "angular-calendario",
+  "version": "0.0.1",
+  "description": "Angular directive for codrops/calendario",
+  "files": ["js/jquery.calendario.js", "js/ng-calendario.js", "css/main.css"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mruoss/angular-calendario.git"
+  },
+  "keywords": [
+    "calendar",
+    "angular",
+    "calendario"
+  ],
+  "author": "Michael Ruoss",
+  "license": "MIT"
+}
